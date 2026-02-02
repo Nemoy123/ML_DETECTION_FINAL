@@ -1,0 +1,23 @@
+# requirements_py312.txt
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.18
+
+# Для Python 3.12 нужны новые версии
+ultralytics==8.4.7  # Поддерживает Python 3.12
+torch==2.9.1
+torchvision==0.24.1  # Новая версия для Python 3.12
+
+# Изображения
+pillow==10.3.0
+opencv-python==4.10.0.84
+numpy==2.2.3
+
+# Дополнительные
+pydantic==2.10.4
+python-dotenv==1.0.1
+aiofiles==24.1.0
+
+# морда
+streamlit
+requests 

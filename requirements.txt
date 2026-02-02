@@ -25,15 +25,15 @@
 streamlit==1.31.1
 requests
 
-# Torch CPU (стабильно работает на Streamlit Cloud)
-torch==2.1.2
-torchvision==0.16.2
+# Torch CPU для Python 3.11
+torch==2.5.1
+torchvision==0.20.1
 
-# YOLO
-ultralytics==8.1.0
-sahi==0.11.16
+# YOLO + SAHI (совместимы)
+ultralytics==8.3.0
+sahi==0.11.18
 
 # Images
-pillow==10.2.0
-opencv-python-headless==4.9.0.80
+pillow==10.3.0
+opencv-python-headless==4.10.0.84
 numpy==1.26.4

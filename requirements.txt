@@ -1,23 +1,39 @@
 # requirements_py312.txt
-fastapi==0.115.6
-uvicorn[standard]==0.34.0
-python-multipart==0.0.18
+# fastapi==0.115.6
+# uvicorn[standard]==0.34.0
+# python-multipart==0.0.18
 
-# Для Python 3.12 нужны новые версии
-ultralytics==8.4.7  # Поддерживает Python 3.12
-torch==2.9.1
-torchvision==0.24.1  # Новая версия для Python 3.12
+# # Для Python 3.12 нужны новые версии
+# ultralytics==8.4.7  # Поддерживает Python 3.12
+# torch==2.9.1
+# torchvision==0.24.1  # Новая версия для Python 3.12
 
-# Изображения
-pillow==10.3.0
-opencv-python==4.10.0.84
-numpy==2.2.3
+# # Изображения
+# pillow==10.3.0
+# opencv-python==4.10.0.84
+# numpy==2.2.3
 
-# Дополнительные
-pydantic==2.10.4
-python-dotenv==1.0.1
-aiofiles==24.1.0
+# # Дополнительные
+# pydantic==2.10.4
+# python-dotenv==1.0.1
+# aiofiles==24.1.0
 
-# морда
-streamlit
-requests 
+# # морда
+# streamlit
+# requests 
+
+streamlit==1.31.1
+requests
+
+# Torch CPU (стабильно работает на Streamlit Cloud)
+torch==2.1.2
+torchvision==0.16.2
+
+# YOLO
+ultralytics==8.1.0
+sahi==0.11.16
+
+# Images
+pillow==10.2.0
+opencv-python-headless==4.9.0.80
+numpy==1.26.4

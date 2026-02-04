@@ -1,0 +1,37 @@
+# version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: ml-backend
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./backend/weights:/app/weights
+    deploy:
+      resources:
+        limits:
+          cpus: "4"
+          memory: 8G
+
+  frontend:
+    build: ./frontend
+    container_name: ml-frontend
+    restart: always
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+
+  nginx:
+    image: nginx:latest
+    container_name: ml-nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - backend

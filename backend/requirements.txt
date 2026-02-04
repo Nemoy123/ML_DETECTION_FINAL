@@ -1,0 +1,24 @@
+# requirements.txt
+
+# Backend
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+
+# PyTorch CPU (Python 3.11)
+torch==2.9.1
+torchvision==0.24.1
+
+# YOLO + SAHI
+ultralytics==8.4.7
+sahi==0.11.36
+
+# Images
+pillow==12.1.0
+opencv-python-headless==4.10.0.84
+numpy==2.2.3
+
+# Frontend
+streamlit==1.53.1
+requests
+
+python-multipart==0.0.18

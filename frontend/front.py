@@ -125,7 +125,7 @@ if uploaded_files:
 
     for f in uploaded_files:
         if f.size > MAX_FILE_SIZE:
-            st.error(f"❌ Файл {f.name} больше 10 МБ")
+            st.error(f"❌ Файл {f.name} больше 50 МБ")
             st.stop()
 
     st.success(f"✔ Загружено файлов: {len(uploaded_files)}")
@@ -142,10 +142,15 @@ if st.button("🚀 Запустить обработку", disabled=not uploaded
     st.session_state["session_id"] = session_id
     st.session_state["tasks"] = []
 
+    # for file in uploaded_files:
+    #     with st.spinner(f"Отправка {file.name}"):
+    #         task = upload_file(session_id, file)
+    #         st.session_state["tasks"].append(task)
     for file in uploaded_files:
-        with st.spinner(f"Отправка {file.name}"):
-            task = upload_file(session_id, file)
-            st.session_state["tasks"].append(task)
+        task = upload_file(session_id, file)
+        task["file_bytes"] = file.getvalue()
+        task["file_name"] = file.name
+        st.session_state["tasks"].append(task)
 
     st.success("Все файлы отправлены в очередь")
 
@@ -185,13 +190,14 @@ if "tasks" in st.session_state:
                     st.success("✅ Обработка завершена")
 
                     # показать изображение с bbox
-                    image = Image.open(file).convert("RGB")
+                    # image = Image.open(file).convert("RGB")
+                    image = Image.open(BytesIO(task["file_bytes"])).convert("RGB")
                     image_with_boxes = draw_bboxes(image, detections)
 
                     st.image(
                         image_with_boxes,
                         caption=f"{filename} — найдено объектов: {len(detections)}",
-                        use_column_width=True
+                        width=800
                     )
 
                     # опционально — JSON под спойлером

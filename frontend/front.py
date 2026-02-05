@@ -1,7 +1,7 @@
 # pip install streamlit requests pillow
 # streamlit run front.py
 
-
+import os
 import streamlit as st
 import requests
 import time
@@ -9,12 +9,28 @@ from PIL import Image
 from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont
 
-API_URL = "http://ml-backend:8000"  # поменяй при необходимости
+def wait_for_backend(url, timeout=60):
+    start = time.time()
+    while time.time() - start < timeout:
+        try:
+            r = requests.get(f"{url}/health", timeout=1)
+            if r.status_code < 500:
+                return
+        except Exception:
+            pass
+        time.sleep(1)
+    raise RuntimeError("Backend not ready")
+
+
+API_URL = os.getenv("API_URL", "http://ml-backend:9000")
+
+wait_for_backend(API_URL)
 
 MAX_FILE_SIZE = 100 * 1024 * 1024      # 10 MB
 MAX_TOTAL_SIZE = 1000 * 1024 * 1024    # 100 MB
 
 CLASS_COLORS = {
+    "bicycle": "yellow",
     "car": "red",
     "van": "orange",
     "truck": "blue",
@@ -142,10 +158,6 @@ if st.button("🚀 Запустить обработку", disabled=not uploaded
     st.session_state["session_id"] = session_id
     st.session_state["tasks"] = []
 
-    # for file in uploaded_files:
-    #     with st.spinner(f"Отправка {file.name}"):
-    #         task = upload_file(session_id, file)
-    #         st.session_state["tasks"].append(task)
     for file in uploaded_files:
         task = upload_file(session_id, file)
         task["file_bytes"] = file.getvalue()
@@ -190,7 +202,6 @@ if "tasks" in st.session_state:
                     st.success("✅ Обработка завершена")
 
                     # показать изображение с bbox
-                    # image = Image.open(file).convert("RGB")
                     image = Image.open(BytesIO(task["file_bytes"])).convert("RGB")
                     image_with_boxes = draw_bboxes(image, detections)
 

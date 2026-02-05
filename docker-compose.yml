@@ -16,6 +16,8 @@ services:
           memory: 8G
 
   frontend:
+    environment:
+      - API_URL=http://ml-backend:9000
     build: ./frontend
     container_name: ml-frontend
     restart: always

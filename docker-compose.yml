@@ -12,8 +12,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "4"
-          memory: 8G
+          cpus: "2"
+          memory: 2G
 
   frontend:
     environment:
